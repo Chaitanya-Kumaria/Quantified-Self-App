@@ -1,0 +1,305 @@
+openapi: "3.0.0"
+info:
+  title: Project api overview
+  version: 2.0.0
+  server: http://127.0.0.1:5000/
+paths:
+  /api/user/<string:username>: 
+    get:
+      summary: Returns Details of the user
+      responses: 
+      '200': 
+        description: 200-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/user/Chaitanya
+            value : {
+                      "id": 2,
+                      "email": "kumaria2001@gmail.com",
+                      "username": "Chaitanya",
+                      "password": "$2b$12$BD07OzX.oxtXSoJGLn1P9e6msF/rmTj9ZEwvbWQfcuK0URwEUZfUi"
+                    }
+      '404':
+        description: occurs when user not found returns message "user not found"
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/user/Ramesh
+            value : {
+                      "message": "user not found"
+                    }
+      '500':
+        description: occurs in case of internal server error returns message "Internal server error"
+
+  /api/trackers/<string:username>: 
+     get:
+      summary: Returns Details of the trackers used by the user
+      responses: 
+      '200': 
+        description: 200-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/trackers/Chaitanya
+            value : [
+                          {
+                            "T_id": 1,
+                            "username": "Chaitanya",
+                            "Tracker_name": "Running",
+                            "Tracker_type": "numerical",
+                            "Time_created": "2022-08-26 22:50:00.921072",
+                            "Tracker_description": "Counts kilometer run",
+                            "settings": ""
+                          },
+                          {
+                            "T_id": 5,
+                            "username": "Chaitanya",
+                            "Tracker_name": "Mood",
+                            "Tracker_type": "mcq",
+                            "Time_created": "2022-08-29 20:25:37.271282",
+                            "Tracker_description": "tracks mood",
+                            "settings": "sad,sombre,unhappy"
+                          },
+                          {
+                            "T_id": 6,
+                            "username": "Chaitanya",
+                            "Tracker_name": "Bhavya's Marks",
+                            "Tracker_type": "Numerical",
+                            "Time_created": "2022-08-31 16:36:08.124101",
+                            "Tracker_description": "Lists marks of bhavya",
+                            "settings": ""
+                          },
+                          {
+                            "T_id": 9,
+                            "username": "Chaitanya",
+                            "Tracker_name": "homework",
+                            "Tracker_type": "Boolean",
+                            "Time_created": "2022-09-10 22:36:20.724982",
+                            "Tracker_description": "Sees homework done or not",
+                            "settings": "yes,no"
+                          }
+                      ]
+      '404':
+        description: occurs when either user or tracker not found returns message "Trackers or username not found"
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/trackers/Ramesh
+            value : {
+                "message": "Trackers or username not found"
+              }
+      '500':
+        description: occurs in case of internal server error returns message "Internal server error"
+  
+  post:
+        summary: Adds a tracker for the user
+        responses: 
+        '201': 
+          description: 201-response
+          content: 
+            application/json:
+              example: http://127.0.0.1:5000/api/trackers/Chaitanya
+              body: {
+                    "Tracker_name":"calories consumed",
+                    "Tracker_type": "Numerical",
+                    "Tracker_description":"Counts calories consumed",
+                    "Trackers_setting":"nil"
+                  }
+              value : {
+                      "T_id": 10,
+                      "username": "Chaitanya",
+                      "Tracker_name": "calories consumed",
+                      "Tracker_type": "Numerical",
+                      "Time_created": "2022-09-11 21:05:44.546599",
+                      "Tracker_description": "Counts calories consumed",
+                      "settings": "nil"
+                    }
+        '404':
+          description: occurs when either user or tracker not found returns message "Trackers or username not found"
+          content: 
+            application/json:
+              example: http://127.0.0.1:5000/api/trackers/Ramesh
+              value : {
+                  "message": "Trackers or username not found"
+                }
+        '500':
+          description: occurs in case of internal server error returns message "Internal server error"
+
+  /api/trackers/<id>: 
+    delete: 
+        summary:  Deletes a Tracker and all its corresponding values  
+        responses: 
+        '200': 
+          description: 200-response{"Successfully deleted"}
+          content: 
+            application/json:
+              example: http://127.0.0.1:5000/api/trackers/10
+              
+              value : "Successfully deleted"
+        '404':
+          description: occurs when either tracker not found returns message "Trackers  not found"
+          content: 
+            application/json:
+              example: http://127.0.0.1:5000/api/trackers/Ramesh
+              value : {
+                  "message": "Trackers not found"
+                }
+        '500':
+          description: occurs in case of internal server error returns message "Internal server error"
+
+  /api/trackers/<string:username>/<string:tracker_name>:
+    
+    get:
+      summary: Returns Details of the list of values of the given tracker used by the user
+      responses: 
+      '200': 
+        description: 200-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/trackers/Chaitanya/Running
+            value : [
+              {
+                "id": 1,
+                "username": "Chaitanya",
+                "Tracker_name": "Running",
+                "Value": "10",
+                "Note": "I did it"
+              },
+              {
+                "id": 2,
+                "username": "Chaitanya",
+                "Tracker_name": "Running",
+                "Value": "7",
+                "Note": "Felt Better"
+              },
+              {
+                "id": 5,
+                "username": "Chaitanya",
+                "Tracker_name": "Running",
+                "Value": "9",
+                "Note": ""
+              },
+              {
+                "id": 10,
+                "username": "Chaitanya",
+                "Tracker_name": "Running",
+                "Value": "9",
+                "Note": "Feeling awesome more"
+              },
+              {
+                "id": 13,
+                "username": "Chaitanya",
+                "Tracker_name": "Running",
+                "Value": "7",
+                "Note": "ran"
+              }
+            ]
+      '404':
+        description: occurs when no value of the tracker for given user is found
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/trackers/Chaitanya/Sleeping
+            value : {
+                "message": "No value found"
+              }
+      '500':
+        description: occurs in case of internal server error returns message "Internal server error"
+    post:
+      summary: adds value for given tracker of the user
+      responses: 
+      '201': 
+        description: 201-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/trackers/Chaitanya/Running
+            body: {
+                  "Value":12,
+                  "Note":"Feeling Nice"
+                }
+            value : {
+                  "id": 19,
+                  "username": "Chaitanya",
+                  "Tracker_name": "Running",
+                  "Time_Stamp": null,
+                  "Value": "12",
+                  "Note": "Feeling Nice"
+                }
+  /api/value/<int:id>:
+    put:
+      summary: Upadates value and note of the tracker with given 
+      responses: 
+      '200': 
+        description: 200-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/<id>
+            body: {
+              "Value":15,
+              "Note":"Feeling Nice"
+            }
+            value: "updated successfully"
+            
+      '404':
+        description: occurs when no value of the tracker for given user is found
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/22
+            value : {
+                "message": "No value found"
+              }
+      '500':
+        description: occurs in case of internal server error returns message "Internal server error"
+    
+
+    delete:
+      summary: deletes value of given id 
+      responses: 
+      '200': 
+        description: 200-response
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/<id>
+            
+            value: "Values for id not found"
+            
+      '404':
+        description: occurs when no value of the tracker for given user is found
+        content: 
+          application/json:
+            example: http://127.0.0.1:5000/api/22
+            value : {
+                "message": "No value found"
+              }
+      '400':
+        description: aborts operation if value id is illegal
+  /login?include_auth_token:
+    post:
+      summary: Allows login if the auth token gets matched
+      responses:
+        '200': 
+          description: exits with status 200 if auth_token is matched
+          content: 
+          application/json:
+            example: http://127.0.0.1:5000/login?include_auth_token
+            body: {
+                "name":"Chaitanya",
+                "email": "kumaria2001@gmail.com",
+                "password": "1234"
+            }
+            value : {
+                "meta": {
+                  "code": 200
+                },
+                "response": {
+                  "csrf_token": "ImRhZTc5ZGM0YTY3NjViOWQ3YTFmZDFmY2E1YjBkNGY5NTlmMGZhMzQi.Yx77jg.L7TOyuT2tJ957QO_1d5V7w6l7To",
+                  "user": {
+                    "authentication_token": "WyIzZGQ0ZmZmZGVhODg0ZDNiYmNkYzg0OTI1NWYyNzA4MCJd.Yx77jg.brCMg2ki2CnbVxjmnkE9I5iIlvY"
+                  }
+                }
+              }
+
+         
+        
+
+
+
+
+
+

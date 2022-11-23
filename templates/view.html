@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+    body {
+        background-image: url('/static/background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        color : black
+      }
+    </style>
+    <title>View </title>
+</head>
+<body>
+    {% if a == "Numerical" or a == "Time" %}
+    <center>
+    <div>
+        <br><br>
+        <p class = h3> Your average {{t_name}} is {{mean_l}}</p>
+        <br>
+        <img src="/static/value.png" alt = "No Trend Possible" style="vertical-align:middle" >
+    </div>
+</center>
+    {% endif %}
+    <br><br>
+    <div class = "text-center"> 
+        <h1>Hi {{session.username}} Here, is the history of your {{t_name}} Tracker </h1>
+    
+    </div>
+    <br><br>
+        <table class="table table-bordered">
+            <tr class="table-dark">
+                <th scope="col">username</th>
+                <th scope = "col">Time Last updated</th>
+                <th scope = "col">Value</th>
+                <th scope = "col">Note</th>
+                <th scope = "col">Delete</th>
+                <th scope = "col">Update</th>
+            </tr>
+            {% for t in records %}
+               
+                <tr>
+                <td>
+                    {{t.username}}
+                    </td>
+                <td>
+                    {{t.Time_stamp}}
+                </td>
+                <td>{{t.Value}}</td>
+                <td>{{t.Note}}</td>
+                <td> <a class= "btn btn-danger" href="/delete/{{t.id}}"> delete this record</a> </td>
+                <td> <a class= "btn btn-warning" href="/update/{{t.id}}"> update this record</a> </td>
+            </tr>
+            
+        {% endfor %}
+        </table>
+        <br>
+    
+
+    
+        <div> 
+        <a class= "btn btn-success" href="/add_t/{{t_name}}">Click it to Track it</a>
+        <br> <br>
+        <a class= "btn btn-light" href = "/">Go back</a>
+    </div>
+</body>
+</html>

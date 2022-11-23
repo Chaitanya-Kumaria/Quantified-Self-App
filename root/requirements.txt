@@ -1,0 +1,9 @@
+flask
+celery[redis]
+flask-sqlalchemy
+flask-restful
+flask-security-too
+flask-caching
+bcrypt
+httplib2
+redis

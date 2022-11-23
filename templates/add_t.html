@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+    body {
+        background-image: url('/static/background.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        color : black
+      }
+      </style>
+    <title>Document</title>
+</head>
+<body>
+    <br><br>
+    <div class = "text-center">
+        <p class = h1> Log your {{tracker_name}} here!! </p>
+    </div>
+    <br><br><br><br><br>
+    <center>
+    <div>
+        <form action = "/add_t/{{tracker_name}}"  method = "POST">
+            <label for = "value"><p class = h4><em><strong>Value</strong> </em></p></label>
+            {% if tracker.Tracker_type in ["mcq","Boolean"]%}
+                
+
+                <select id = "value" name = "value">
+                    {% for i in l %}
+
+                    <option value = {{i}}>{{i}}</option>
+
+                    {% endfor %}
+                    </select>
+                   
+            {% else %}    
+                <input type = "text" id = "value" name = "value"> <br><br>
+            {% endif %}
+            <br><br>
+            <label for = "note"><p class = h4><em><strong>Note</strong> </em></p></label>
+            <input type = "text" id = "note" name = "note"><br><br>
+            <br><br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-warning">Log it </button>
+            </div>
+    
+        </form>
+    </center>
+    </div>
+</body>
+</html>

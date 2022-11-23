@@ -1,0 +1,32 @@
+body{
+    background-image: linear-gradient(to top, #818486 100%, #e2ebf0 0%);
+}
+.col-md-10{
+    margin-top: 130px;
+    padding: 20px;
+    background-color: azure;
+}
+.col-md-7{
+    margin-top: 150px !important;
+    background-color: blanchedalmond;
+    padding: 20px !important;
+    border: 2em !important;
+}
+h1{
+    background-color: beige;
+    color: black !important;
+    padding: 30px !important;
+}
+input,label{
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+   
+}
+h3{
+    background-color: azure;
+    color:black;
+}
+.nav-item{
+    padding :0.5em !important;
+}
